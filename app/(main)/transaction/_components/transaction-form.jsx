@@ -8,7 +8,7 @@ import { format } from "date-fns";
 import { useRouter, useSearchParams } from "next/navigation";
 import useFetch from "@/hooks/use-fetch";
 import { toast } from "sonner";
-
+import { CSVImport } from "./csv-import";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
@@ -41,6 +41,15 @@ export function AddTransactionForm({
   const searchParams = useSearchParams();
   const editId = searchParams.get("edit");
 
+  const handleCSVImport = (rows) => {
+    // TODO: Validate/transform as needed, then send to API
+    // E.g. check each row has: amount, category, date, description, etc.
+    console.log("Parsed CSV rows:", rows);
+    // You can also call your Supabase insert API here!
+    // Optionally show errors/success via toast
+  };
+
+  
   const {
     register,
     handleSubmit,
@@ -131,7 +140,12 @@ export function AddTransactionForm({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       {/* Receipt Scanner - Only show in create mode */}
-      {!editMode && <ReceiptScanner onScanComplete={handleScanComplete} />}
+      {!editMode && <>
+      
+        <ReceiptScanner onScanComplete={handleScanComplete}/>
+        <CSVImport onImport={handleCSVImport} />
+      
+      </> }
 
       {/* Type */}
       <div className="space-y-2">
