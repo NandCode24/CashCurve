@@ -49,17 +49,28 @@ export const featuresData = [
   {
     icon: <CreditCard className="h-8 w-8 text-blue-600" />,
     title: "Multi-Account Support",
-    description: "Manage multiple accounts and credit cards in one place",
-  },
-  {
-    icon: <Globe className="h-8 w-8 text-blue-600" />,
-    title: "Multi-Currency",
-    description: "Support for multiple currencies with real-time conversion",
+    description: "Manage multiple accounts in one place",
   },
   {
     icon: <Zap className="h-8 w-8 text-blue-600" />,
-    title: "Automated Insights",
-    description: "Get automated financial insights and recommendations",
+    title: "AI-Powered Email Reports",
+    description: "Monthly AI reports sent to your email with insights on income, expenses, and alerts if you're exceeding your budget",
+  },
+  {
+    icon: <Zap className="h-8 w-8 text-blue-600" />,
+    title: "Export Transactions as PDF",
+    description: "Easily download your income and expense transactions in PDF format for records, sharing, or offline access",
+  },
+  {
+    icon: <CreditCard className="h-8 w-8 text-blue-600" />,
+    title: "Reccuring Transactions",
+    description: "Allows user to add Reccuring and Non-Reccuring Transactions",
+  },
+  {
+    icon: <BarChart3 className="h-8 w-8 text-blue-600" />,
+    title: "Visualizations",
+    description:
+      "Displays user's various Expenses, Incomes and Monthly Expenses using various Graphs and Charts",
   },
 ];
 
