@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import useFetch from "@/hooks/use-fetch";
 import { scanReceipt } from "@/actions/transaction";
+import imageCompression from "browser-image-compression";
 
 export function ReceiptScanner({ onScanComplete }) {
   const fileInputRef = useRef(null);
@@ -17,12 +18,38 @@ export function ReceiptScanner({ onScanComplete }) {
   } = useFetch(scanReceipt);
 
   const handleReceiptScan = async (file) => {
-    if (file.size > 5 * 1024 * 1024) {
-      toast.error("File size should be less than 5MB");
-      return;
-    }
+    try {
+      let compressedFile = file;
 
-    await scanReceiptFn(file);
+      if (file.size > 5 * 1024 * 1024) {
+        toast.info("Compressing large image before upload...");
+        const options = {
+          maxSizeMB: 1, // Target max file size
+          maxWidthOrHeight: 1920, // Resize large images
+          useWebWorker: true,
+        };
+
+        compressedFile = await imageCompression(file, options);
+
+        console.log(
+          `Original: ${(file.size / 1024 / 1024).toFixed(2)}MB, Compressed: ${(compressedFile.size / 1024 / 1024).toFixed(2)}MB`
+        );
+
+        if (compressedFile.size > 5 * 1024 * 1024) {
+          toast.error(
+            "Even after compression, file is too large (>5MB). Please upload a smaller image."
+          );
+          return;
+        }
+
+        toast.success("Image compressed successfully!");
+      }
+
+      await scanReceiptFn(compressedFile);
+    } catch (err) {
+      console.error("Image compression failed:", err);
+      toast.error("Failed to compress image. Try a smaller file.");
+    }
   };
 
   useEffect(() => {
