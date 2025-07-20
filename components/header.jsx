@@ -25,7 +25,9 @@ const Header = async () => {
         {/* Navigation Links - Different for signed in/out users */}
         <div className="hidden md:flex items-center space-x-8">
           <SignedOut>
-           
+            <a href="#features" className="text-gray-600 hover:text-blue-600">
+              Features
+            </a>
           </SignedOut>
         </div>
 
