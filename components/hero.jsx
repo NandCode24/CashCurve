@@ -43,7 +43,7 @@ const HeroSection = () => {
             </Button>
           </Link>
           <Link href="/">
-            <Button size="lg" variant="outline" className="px-8">
+            <Button size="lg" variant="outline" className="px-8" href="@/public/DemoVideo.mov">
               Watch Demo
             </Button>
           </Link>
