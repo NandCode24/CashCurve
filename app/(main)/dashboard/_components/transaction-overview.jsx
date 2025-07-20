@@ -213,55 +213,67 @@ export function DashboardOverview({ accounts, transactions }) {
           </CardContent>
         </Card>
 
-        {/* Expense Breakdown Card */}
-        <Card>
+        <Card className="w-full overflow-hidden">
           <CardHeader>
-            <CardTitle className="text-base font-normal">
+            <CardTitle className="text-base font-medium md:text-lg">
               Monthly Expense Breakdown
             </CardTitle>
           </CardHeader>
+
           <CardContent className="p-0 pb-5">
             {pieChartData.length === 0 ? (
-              <p className="text-center text-muted-foreground py-4">
+              <p className="text-center text-muted-foreground py-4 text-sm md:text-base">
                 No expenses for selected month
               </p>
             ) : (
-              <div className="h-[300px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={pieChartData}
-                      cx="50%"
-                      cy="50%"
-                      outerRadius={80}
-                      fill="#8884d8"
-                      dataKey="value"
-                      label={({ name, value }) =>
-                        `${name}: ₹${value.toFixed(2)}`
-                      }
-                    >
-                      {pieChartData.map((entry, index) => (
-                        <Cell
-                          key={`cell-${index}`}
-                          fill={COLORS[index % COLORS.length]}
-                        />
-                      ))}
-                    </Pie>
-                    <Tooltip
-                      formatter={(value) => `₹${value.toFixed(2)}`}
-                      contentStyle={{
-                        backgroundColor: "hsl(var(--popover))",
-                        border: "1px solid hsl(var(--border))",
-                        borderRadius: "var(--radius)",
-                      }}
-                    />
-                    <Legend />
-                  </PieChart>
-                </ResponsiveContainer>
+              <div className="w-full overflow-x-auto px-2">
+                {/* 👇 Set a wide enough width for full scroll */}
+                <div className="w-[600px] h-[320px] md:w-full md:h-[350px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={pieChartData}
+                        cx="50%"
+                        cy="50%"
+                        outerRadius="70%"
+                        fill="#8884d8"
+                        dataKey="value"
+                        label={({ name, value }) =>
+                          `${name}: ₹${value.toFixed(2)}`
+                        }
+                      >
+                        {pieChartData.map((entry, index) => (
+                          <Cell
+                            key={`cell-${index}`}
+                            fill={COLORS[index % COLORS.length]}
+                          />
+                        ))}
+                      </Pie>
+                      <Tooltip
+                        formatter={(value) => `₹${value.toFixed(2)}`}
+                        contentStyle={{
+                          backgroundColor: "hsl(var(--popover))",
+                          border: "1.5px solid hsl(var(--border))",
+                          borderRadius: "var(--radius)",
+                        }}
+                      />
+                      <Legend
+                        wrapperStyle={{
+                          fontSize: "14px",
+                          paddingTop: "10px",
+                          maxWidth: "100%",
+                        }}
+                      />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
               </div>
             )}
           </CardContent>
         </Card>
+
+
+
       </div>
     </div>
   );
